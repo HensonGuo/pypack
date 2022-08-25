@@ -69,10 +69,6 @@ class Svn(object):
             self.commit_version = out[pos + len("Committed revision "): out.find(".", pos)]
             return ret
 
-            if os.path.exists(fn):
-                os.remove(fn)
-        return 1
-
     def get_version(self):
         assert not "svn not supported"
 
