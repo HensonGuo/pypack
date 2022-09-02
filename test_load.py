@@ -3,13 +3,12 @@ import sys
 import traceback
 import ctypes
 
-def importPluginModule(pluginPath, pluginName, excuteFilePath, version):
+def importPluginModule(pluginPath, pluginName, package, version):
     if not os.path.isfile(pluginPath):
         print(f"not exist {pluginPath}")
         return None
 
-    # moduleName = f"{pluginName}_r{version}.{excuteFilePath}"
-    moduleName = f"{pluginName}_r{version}.client"
+    moduleName = f"{pluginName}_r{version}.{package}"
     print(f"import module {pluginPath} {moduleName}")
     module = None
     try:
@@ -71,10 +70,9 @@ def addPath2SysPath(resPath, name):
 
 
 if __name__ == "__main__":
-    import sys, os
     from PyQt5 import QtWidgets
     app = QtWidgets.QApplication(sys.argv)
-    module = importPluginModule(r"F:\test\out_master\tcplinkprotocols-master-1662041606.res", "tcplinkprotocols", "client.main_widget", 1662041606)
+    module = importPluginModule(r"F:\test\out_master\tcplinkprotocols-master-1662041606.res", "tcplinkprotocols", "client", 1662041606)
     widget = module.create()
     widget.show()
     sys.exit(app.exec_())

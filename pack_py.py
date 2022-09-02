@@ -12,6 +12,7 @@ import datetime
 import argparse
 
 from vcs.git import Git
+from change_imports import changeImports
 
 class PackPyc(object):
 
@@ -97,6 +98,15 @@ class PackPyc(object):
 
             # 把代码拷贝到pack_temp目录
             self.copySrc2Temp(temp_dir, version)
+
+            # 更改目录
+            dst_dir = os.path.join(temp_dir, "{}_r{}/".format(self.repo_name, version))
+            items = os.listdir(dst_dir)
+            root_packges = []
+            for item in items:
+                if os.path.isdir(f"{dst_dir}/{item}"):
+                    root_packges.append(item)
+            changeImports(temp_dir, "{}_r{}".format(self.repo_name, version), root_packges)
 
             # 制作res
             res_path = self.makeRes(temp_dir, version)
